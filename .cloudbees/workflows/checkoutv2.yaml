@@ -1,0 +1,39 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: Test automation caller test workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    steps:
+    - name: checkout
+      continue-on-error: true
+      uses: cloudbees-io/checkout/.cloudbees/testing # v2
+      id: checkout
+      with:
+        fetch-depth: "0"
+        repository: https://github.com/cbp-qa-automation/TestPrivateRepo.git
+        # token: ${{ secrets.GH_PAT}}
+        # token-auth-type: bearer
+
+    - uses: docker://alpine:3.20
+      name: cat git-config
+      run: |
+        ls /cloudbees/home/.gitconfig
+        cat /cloudbees/home/.gitconfig
+
+    - name: Print Env
+      uses: docker://node:21.7-alpine3.18
+      run: |
+        echo "PWD: $PWD"
+        echo "HOME: $HOME"
+
+    - name: Display outputs
+      uses: docker://golang:1.20.3-alpine3.17
+      shell: sh
+      run: |
+        echo Repository URL = ${{ steps.checkout.outputs.repository-url }}
+        echo Commit ID = ${{ steps.checkout.outputs.commit }}
+        echo Ref = ${{ steps.checkout.outputs.ref }}    
