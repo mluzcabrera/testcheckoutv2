@@ -14,7 +14,7 @@ jobs:
       id: checkout
       with:
         fetch-depth: "0"
-        repository: https://github.com/mluzcabrera/privatetestrepo.git
+        repository: https://github.com/mluzcabrera/privatetestrepo
         # token: ${{ secrets.GH_PAT}}
         # token-auth-type: bearer
 
