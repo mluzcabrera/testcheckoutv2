@@ -5,6 +5,9 @@ name: Test automation caller test workflow
 on:
   workflow_dispatch:
 
+permissions:
+  scm-token-org: read
+
 jobs:
   build:
     steps:
@@ -14,7 +17,7 @@ jobs:
       id: checkout
       with:
         fetch-depth: "0"
-        repository: https://github.com/mluzcabrera/privatetestrepo.git
+        repository: https://github.com/cbp-qa-automation/TestPrivateRepo.git
         # token: ${{ secrets.GH_PAT}}
         # token-auth-type: bearer
 
