@@ -4,9 +4,14 @@ name: Checkout test
 on:
   workflow_dispatch:
 jobs:
-  checkout:
+  checkout_same:
+    steps:
+      - name: checkout
+        uses: cloudbees-io/checkout/.cloudbees/testing
+  checkout_diff:
     steps:
       - name: checkout
         uses: cloudbees-io/checkout/.cloudbees/testing
         with:
           repository: https://github.com/cbp-qa-automation/qa-test-hello-world.git
+
